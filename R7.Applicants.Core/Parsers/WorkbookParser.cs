@@ -149,6 +149,8 @@ namespace R7.Applicants.Core.Parsers
                 }
                 else if (cell.ColumnIndex == 7) {
                     context.EduProgram.Exam2Title = cellStrValue;
+                }
+                else if (cell.ColumnIndex > 7) {
                     context.State = WorkbookParserState.List;
                     skipRow = true;
                 }
@@ -164,6 +166,8 @@ namespace R7.Applicants.Core.Parsers
                 }
                 else if (cell.ColumnIndex == 6) {
                     context.EduProgram.Exam3Title = cellStrValue;
+                }
+                else if (cell.ColumnIndex > 6) {
                     context.State = WorkbookParserState.List;
                     skipRow = true;
                 }
@@ -176,7 +180,6 @@ namespace R7.Applicants.Core.Parsers
                     parseCellAgain = true;
                     return;
                 }
-
                 if (cell.ColumnIndex == 0) {
                     context.Applicant = new Applicant ();
                     if (int.TryParse (cellStrValue, out int order)) {
@@ -186,78 +189,85 @@ namespace R7.Applicants.Core.Parsers
                 else if (cell.ColumnIndex == 1) {
                     context.Applicant.Name = cellStrValue;
                 }
-                else if (context.IsSpoBlock) {
-                    if (cell.ColumnIndex == 3) {
-                        context.Applicant.OriginalOrCopy = cellStrValue.Equals ("Оригинал", StringComparison.CurrentCultureIgnoreCase);
-                    }
-                    else if (cell.ColumnIndex == 5) {
-                        if (decimal.TryParse (cellStrValue, out decimal exam1Rate)) {
-                            context.Applicant.Exam1Rate = exam1Rate;
-                        }
-                    }
-                    else if (cell.ColumnIndex == 7) {
-                        context.Applicant.Exam2Mark = cellStrValue;
-                    }
-                    else if (cell.ColumnIndex == 9) {
-                        if (decimal.TryParse (cellStrValue, out decimal rate)) {
-                            context.Applicant.Rate = rate;
-                        }
-                        // insert new applicant
-                        context.Applicant.EduProgramId = context.EduProgram.Id;
-                        applicants.Insert (context.Applicant);
-                        skipRow = true;
+            }
+
+            if (context.State == WorkbookParserState.List && context.IsSpoBlock) {
+                if (cell.ColumnIndex == 3) {
+                    context.Applicant.OriginalOrCopy = cellStrValue.Equals ("Оригинал", StringComparison.CurrentCultureIgnoreCase);
+                }
+                else if (cell.ColumnIndex == 5) {
+                    if (decimal.TryParse (cellStrValue, out decimal exam1Rate)) {
+                        context.Applicant.Exam1Rate = exam1Rate;
                     }
                 }
-                else {
-                    if (cell.ColumnIndex == 2) {
-                        context.Applicant.OriginalOrCopy = cellStrValue.Equals ("Оригинал", StringComparison.CurrentCultureIgnoreCase);
-                    }
-                    else if (cell.ColumnIndex == 3) {
-                        context.Applicant.Consent = cellStrValue.Equals ("Да", StringComparison.CurrentCultureIgnoreCase);
-                    }
-                    if (cell.ColumnIndex == 4) {
-                        if (decimal.TryParse (cellStrValue, out decimal exam1Rate)) {
-                            context.Applicant.Exam1Rate = exam1Rate;
-                        }
-                    }
-                    else if (cell.ColumnIndex == 5) {
-                        if (decimal.TryParse (cellStrValue, out decimal exam2Rate)) {
-                            context.Applicant.Exam2Rate = exam2Rate;
-                        }
-                    }
-                    else if (cell.ColumnIndex == 6) {
-                        if (decimal.TryParse (cellStrValue, out decimal exam3Rate)) {
-                            context.Applicant.Exam3Rate = exam3Rate;
-                        }
-                    }
-                    else if (cell.ColumnIndex == 7) {
-                        if (decimal.TryParse (cellStrValue, out decimal paRate)) {
-                            context.Applicant.PaRate = paRate;
-                        }
-                    }
-                    else if (cell.ColumnIndex == 8) {
-                        if (decimal.TryParse (cellStrValue, out decimal rate)) {
-                            context.Applicant.Rate = rate;
-                        }
-                    }
-                    else if (cell.ColumnIndex == 9) {
-                        var category = categoriesCache.FirstOrDefault (d => d.Title == cellStrValue);
-                        if (category == null) {
-                            category = new Category {
-                                Title = cellStrValue
-                            };
-                            var id = categories.Insert (category);
-                            db.Commit ();
-                            category.Id = id.AsInt32;
-                            categoriesCache.Add (category);
-                        }
-                        // insert new applicant
-                        context.Applicant.CategoryId = category.Id;
-                        context.Applicant.EduProgramId = context.EduProgram.Id;
-                        applicants.Insert (context.Applicant);
-                        skipRow = true;
+                else if (cell.ColumnIndex == 7) {
+                    context.Applicant.Exam2Mark = cellStrValue;
+                }
+                else if (cell.ColumnIndex == 9) {
+                    if (decimal.TryParse (cellStrValue, out decimal rate)) {
+                        context.Applicant.Rate = rate;
                     }
                 }
+                else if (cell.ColumnIndex > 9) {
+                    context.Applicant.EduProgramId = context.EduProgram.Id;
+                    applicants.Insert (context.Applicant);
+                    skipRow = true;
+                }
+                return;
+            }
+
+            if (context.State == WorkbookParserState.List && !context.IsSpoBlock) {
+                if (cell.ColumnIndex == 2) {
+                    context.Applicant.OriginalOrCopy = cellStrValue.Equals ("Оригинал", StringComparison.CurrentCultureIgnoreCase);
+                }
+                else if (cell.ColumnIndex == 3) {
+                    context.Applicant.Consent = cellStrValue.Equals ("Да", StringComparison.CurrentCultureIgnoreCase);
+                }
+                if (cell.ColumnIndex == 4) {
+                    if (decimal.TryParse (cellStrValue, out decimal exam1Rate)) {
+                        context.Applicant.Exam1Rate = exam1Rate;
+                    }
+                }
+                else if (cell.ColumnIndex == 5) {
+                    if (decimal.TryParse (cellStrValue, out decimal exam2Rate)) {
+                        context.Applicant.Exam2Rate = exam2Rate;
+                    }
+                }
+                else if (cell.ColumnIndex == 6) {
+                    if (decimal.TryParse (cellStrValue, out decimal exam3Rate)) {
+                        context.Applicant.Exam3Rate = exam3Rate;
+                    }
+                }
+                else if (cell.ColumnIndex == 7) {
+                    if (decimal.TryParse (cellStrValue, out decimal paRate)) {
+                        context.Applicant.PaRate = paRate;
+                    }
+                }
+                else if (cell.ColumnIndex == 8) {
+                    if (decimal.TryParse (cellStrValue, out decimal rate)) {
+                        context.Applicant.Rate = rate;
+                    }
+                }
+                else if (cell.ColumnIndex == 9) {
+                    var category = categoriesCache.FirstOrDefault (d => d.Title == cellStrValue);
+                    if (category == null) {
+                        category = new Category {
+                            Title = cellStrValue
+                        };
+                        var id = categories.Insert (category);
+                        db.Commit ();
+                        category.Id = id.AsInt32;
+                        categoriesCache.Add (category);
+                    }
+                    context.Category = category;
+                }
+                else if (cell.ColumnIndex > 9) {
+                    context.Applicant.CategoryId = context.Category.Id;
+                    context.Applicant.EduProgramId = context.EduProgram.Id;
+                    applicants.Insert (context.Applicant);
+                    skipRow = true;
+                }
+                return;
             }
         }
 

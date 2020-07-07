@@ -16,6 +16,8 @@ namespace R7.Applicants.Core.Parsers
 
         public Applicant Applicant;
 
+        public Category Category;
+
         public bool IsSpoBlock;
 
         public WorkbookParserContext ()
