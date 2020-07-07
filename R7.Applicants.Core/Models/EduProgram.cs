@@ -8,6 +8,8 @@
 
         public string Title { get; set; }
 
+        public string ProfileTitle { get; set; }
+
         public string Exam1Title { get; set; }
 
         public string Exam2Title { get; set; }

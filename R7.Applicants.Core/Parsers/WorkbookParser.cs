@@ -117,24 +117,21 @@ namespace R7.Applicants.Core.Parsers
                             context.IsSpoBlock = false;
                         }
 
-                        var eduProgramStrValue = Regex.Matches (cellStrValue,
-                            @"«[^»]+»(\s+Профиль:.*)?",
-                            RegexOptions.Singleline | RegexOptions.IgnoreCase) [0].Value;
+                        var eduProgramTitle = Regex.Match (cellStrValue, @"«[^»]+»", RegexOptions.Singleline | RegexOptions.IgnoreCase).Value;
+                        var eduProfileTitle = Regex.Match (cellStrValue, @"Профиль:(.*)", RegexOptions.Singleline | RegexOptions.IgnoreCase).Groups [1].Value;
 
-                        // TODO: Extract method
-                        eduProgramStrValue = eduProgramStrValue.Replace ("«", "");
-                        eduProgramStrValue = eduProgramStrValue.Replace ("»", "");
-                        eduProgramStrValue = eduProgramStrValue.Replace ("\n", " ");
-                        eduProgramStrValue = eduProgramStrValue.Replace ("\r", " ");
-                        eduProgramStrValue = eduProgramStrValue.Replace ("\t", " ");
-                        eduProgramStrValue = Regex.Replace (eduProgramStrValue, @"\s+", " ");
-                        eduProgramStrValue = eduProgramStrValue.Trim ();
+                        eduProgramTitle = FormatEduProgramTitle (eduProgramTitle);
+                        eduProfileTitle = FormatEduProgramTitle (eduProfileTitle);
 
-                        var eduProgram = eduPrograms.FindOne (ep => ep.Title == eduProgramStrValue && ep.EduLevelId == context.EduLevel.Id);
+                        var eduProgram = eduPrograms.FindOne (ep => ep.Title == eduProgramTitle
+                            && ep.ProfileTitle == eduProfileTitle
+                            && ep.EduLevelId == context.EduLevel.Id);
+
                         if (eduProgram == null) {
                             eduProgram = new EduProgram {
                                 EduLevelId = context.EduLevel.Id,
-                                Title = eduProgramStrValue
+                                Title = eduProgramTitle,
+                                ProfileTitle = eduProfileTitle
                             };
                             var id = eduPrograms.Insert (eduProgram);
                             db.Commit ();
@@ -299,6 +296,18 @@ namespace R7.Applicants.Core.Parsers
                     }
                 }
             }
+        }
+
+        string FormatEduProgramTitle (string eduProgramTitle)
+        {
+            eduProgramTitle = eduProgramTitle.Replace ("«", "");
+            eduProgramTitle = eduProgramTitle.Replace ("»", "");
+            eduProgramTitle = eduProgramTitle.Replace ("\n", " ");
+            eduProgramTitle = eduProgramTitle.Replace ("\r", " ");
+            eduProgramTitle = eduProgramTitle.Replace ("\t", " ");
+            eduProgramTitle = Regex.Replace (eduProgramTitle, @"\s+", " ");
+            eduProgramTitle = eduProgramTitle.Trim ();
+            return eduProgramTitle;
         }
 
         CellRangeAddress GetCellRangeAddress (ICell cell, ISheet sheet)
