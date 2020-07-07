@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using LiteDB;
 using R7.Applicants.Core.Models;
 
@@ -8,47 +9,61 @@ namespace R7.Applicants.Core
     {
         public static void DumpDatabase (ILiteDatabase db)
         {
-            Console.WriteLine ();
+            var json = Newtonsoft.Json.JsonSerializer.CreateDefault ();
+           
             Console.WriteLine ("== Divisions:");
+            var writer = new StringWriter ();
             var divisions = db.GetCollection<Division> ("Divisions");
             foreach (var division in divisions.FindAll ()) {
-                Console.WriteLine (division.Id + " " + division.Title);
+                json.Serialize (writer, division);
+                writer.WriteLine ();
             }
+            Console.WriteLine (writer);
 
-            Console.WriteLine ();
             Console.WriteLine ("== EduForms:");
+            writer = new StringWriter ();
             var eduForms = db.GetCollection<EduForm> ("EduForms");
             foreach (var eduForm in eduForms.FindAll ()) {
-                Console.WriteLine (eduForm.Id + " " + eduForm.Title);
+                json.Serialize (writer, eduForm);
+                writer.WriteLine ();
             }
+            Console.WriteLine (writer);
 
-            Console.WriteLine ();
             Console.WriteLine ("== EduLevels:");
+            writer = new StringWriter ();
             var eduLevels = db.GetCollection<EduLevel> ("EduLevels");
             foreach (var eduLevel in eduLevels.FindAll ()) {
-                Console.WriteLine (eduLevel.Id + " " + eduLevel.Title);
+                json.Serialize (writer, eduLevel);
+                writer.WriteLine ();
             }
+            Console.WriteLine (writer);
 
-            Console.WriteLine ();
             Console.WriteLine ("== Categories:");
+            writer = new StringWriter ();
             var categories = db.GetCollection<Category> ("Categories");
             foreach (var category in categories.FindAll ()) {
-                Console.WriteLine (category.Id + " " + category.Title);
+                json.Serialize (writer, category);
+                writer.WriteLine ();
             }
+            Console.WriteLine (writer);
 
-            Console.WriteLine ();
             Console.WriteLine ("== EduPrograms:");
+            writer = new StringWriter ();
             var eduPrograms = db.GetCollection<EduProgram> ("EduPrograms");
             foreach (var eduProgram in eduPrograms.FindAll ()) {
-                Console.WriteLine ("Id: " + eduProgram.Id + ", EduLevelId: " + eduProgram.EduLevelId + ", Title: " + eduProgram.Title);
+                json.Serialize (writer, eduProgram);
+                writer.WriteLine ();
             }
+            Console.WriteLine (writer);
 
-            Console.WriteLine ();
             Console.WriteLine ("== Applicants:");
+            writer = new StringWriter ();
             var applicants = db.GetCollection<Applicant> ("Applicants");
             foreach (var applicant in applicants.FindAll ()) {
-                Console.WriteLine ("Id: " + applicant.Id + ", Name: " + applicant.Name + ", EduProgramId: " + applicant.EduProgramId);
+                json.Serialize (writer, applicant);
+                writer.WriteLine ();
             }
+            Console.WriteLine (writer);
         }
     }
 }
