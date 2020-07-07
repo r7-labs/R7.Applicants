@@ -13,10 +13,10 @@ namespace R7.Applicants
             var db = new LiteDatabase ("./lite.db");
 
             var workbookParser = new WorkbookParser (db);
-            //workbookParser.ParseTo ("./data/bak.xls", db);
+            workbookParser.ParseTo ("./data/bak.xls", db);
             workbookParser.ParseTo ("./data/bak-spec.xls", db);
-            //workbookParser.ParseTo ("./data/ino.xls", db);
-            //workbookParser.ParseTo ("./data/asp.xls", db);
+            workbookParser.ParseTo ("./data/ino.xls", db);
+            workbookParser.ParseTo ("./data/asp.xls", db);
 
             DumpDatabase (db);
 

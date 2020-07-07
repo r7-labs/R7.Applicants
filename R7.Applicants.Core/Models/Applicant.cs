@@ -16,15 +16,17 @@
 
         public int EduFormId { get; set; }
 
-        public int? Exam1Rate { get; set; }
+        public decimal? Exam1Rate { get; set; }
 
-        public int? Exam2Rate { get; set; }
+        public decimal? Exam2Rate { get; set; }
 
-        public int? Exam3Rate { get; set; }
+        public string Exam2Mark { get; set; }
 
-        public int? PaRate { get; set; }
+        public decimal? Exam3Rate { get; set; }
 
-        public int? Rate { get; set; }
+        public decimal? PaRate { get; set; }
+
+        public decimal? Rate { get; set; }
 
         public int CategoryId { get; set; }
     }
