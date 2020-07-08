@@ -8,9 +8,9 @@
 
         public string Name { get; set; }
 
-        public bool OriginalOrCopy { get; set; }
+        public bool HasOriginal { get; set; }
 
-        public bool Consent { get; set; }
+        public bool HasAgreement { get; set; }
 
         public int EduProgramId { get; set; }
 
@@ -24,9 +24,9 @@
 
         public decimal? Exam3Rate { get; set; }
 
-        public decimal? PaRate { get; set; }
+        public decimal? AchRate { get; set; }
 
-        public decimal? Rate { get; set; }
+        public decimal? TotalRate { get; set; }
 
         public string Category { get; set; }
     }

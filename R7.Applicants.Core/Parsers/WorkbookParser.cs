@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using LiteDB;
 using NPOI.HSSF.UserModel;
@@ -182,7 +180,7 @@ namespace R7.Applicants.Core.Parsers
 
             if (context.State == WorkbookParserState.List && context.IsSpoBlock) {
                 if (cell.ColumnIndex == 3) {
-                    context.Applicant.OriginalOrCopy = cellStrValue.Equals ("Оригинал", StringComparison.CurrentCultureIgnoreCase);
+                    context.Applicant.HasOriginal = cellStrValue.Equals ("Оригинал", StringComparison.CurrentCultureIgnoreCase);
                 }
                 else if (cell.ColumnIndex == 5) {
                     if (decimal.TryParse (cellStrValue, out decimal exam1Rate)) {
@@ -193,8 +191,8 @@ namespace R7.Applicants.Core.Parsers
                     context.Applicant.Exam2Mark = cellStrValue;
                 }
                 else if (cell.ColumnIndex == 9) {
-                    if (decimal.TryParse (cellStrValue, out decimal rate)) {
-                        context.Applicant.Rate = rate;
+                    if (decimal.TryParse (cellStrValue, out decimal totalRate)) {
+                        context.Applicant.TotalRate = totalRate;
                     }
                 }
                 else if (cell.ColumnIndex > 9) {
@@ -208,10 +206,10 @@ namespace R7.Applicants.Core.Parsers
 
             if (context.State == WorkbookParserState.List && !context.IsSpoBlock) {
                 if (cell.ColumnIndex == 2) {
-                    context.Applicant.OriginalOrCopy = cellStrValue.Equals ("Оригинал", StringComparison.CurrentCultureIgnoreCase);
+                    context.Applicant.HasOriginal = cellStrValue.Equals ("Оригинал", StringComparison.CurrentCultureIgnoreCase);
                 }
                 else if (cell.ColumnIndex == 3) {
-                    context.Applicant.Consent = cellStrValue.Equals ("Да", StringComparison.CurrentCultureIgnoreCase);
+                    context.Applicant.HasAgreement = cellStrValue.Equals ("Да", StringComparison.CurrentCultureIgnoreCase);
                 }
                 if (cell.ColumnIndex == 4) {
                     if (decimal.TryParse (cellStrValue, out decimal exam1Rate)) {
@@ -229,13 +227,13 @@ namespace R7.Applicants.Core.Parsers
                     }
                 }
                 else if (cell.ColumnIndex == 7) {
-                    if (decimal.TryParse (cellStrValue, out decimal paRate)) {
-                        context.Applicant.PaRate = paRate;
+                    if (decimal.TryParse (cellStrValue, out decimal achRate)) {
+                        context.Applicant.AchRate = achRate;
                     }
                 }
                 else if (cell.ColumnIndex == 8) {
-                    if (decimal.TryParse (cellStrValue, out decimal rate)) {
-                        context.Applicant.Rate = rate;
+                    if (decimal.TryParse (cellStrValue, out decimal totalRate)) {
+                        context.Applicant.TotalRate = totalRate;
                     }
                 }
                 else if (cell.ColumnIndex == 9) {
