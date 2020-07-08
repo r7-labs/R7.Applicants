@@ -21,10 +21,7 @@ namespace R7.Applicants.Core.Parsers
         ILiteCollection<EduForm> eduForms;
         ILiteCollection<EduProgram> eduPrograms;
         ILiteCollection<EduLevel> eduLevels;
-        ILiteCollection<Category> categories;
         ILiteCollection<Applicant> applicants;
-
-        IList<Category> categoriesCache;
 
         public WorkbookParser (ILiteDatabase db)
         {
@@ -34,10 +31,7 @@ namespace R7.Applicants.Core.Parsers
             eduForms = db.GetCollection<EduForm> ("EduForms");
             eduPrograms = db.GetCollection<EduProgram> ("EduPrograms");
             eduLevels = db.GetCollection<EduLevel> ("EduLevels");
-            categories = db.GetCollection<Category> ("Categories");
             applicants = db.GetCollection<Applicant> ("Applicants");
-
-            categoriesCache = new List<Category> (categories.FindAll ());
         }
 
         /// <summary>
@@ -245,20 +239,9 @@ namespace R7.Applicants.Core.Parsers
                     }
                 }
                 else if (cell.ColumnIndex == 9) {
-                    var category = categoriesCache.FirstOrDefault (d => d.Title == cellStrValue);
-                    if (category == null) {
-                        category = new Category {
-                            Title = cellStrValue
-                        };
-                        var id = categories.Insert (category);
-                        db.Commit ();
-                        category.Id = id.AsInt32;
-                        categoriesCache.Add (category);
-                    }
-                    context.Category = category;
+                    context.Applicant.Category = cellStrValue;
                 }
                 else if (cell.ColumnIndex > 9) {
-                    context.Applicant.CategoryId = context.Category.Id;
                     context.Applicant.EduProgramId = context.EduProgram.Id;
                     context.Applicant.EduFormId = context.EduForm.Id;
                     applicants.Insert (context.Applicant);

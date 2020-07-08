@@ -38,15 +38,6 @@ namespace R7.Applicants.Core
             }
             Console.WriteLine (writer);
 
-            Console.WriteLine ("== Categories:");
-            writer = new StringWriter ();
-            var categories = db.GetCollection<Category> ("Categories");
-            foreach (var category in categories.FindAll ()) {
-                json.Serialize (writer, category);
-                writer.WriteLine ();
-            }
-            Console.WriteLine (writer);
-
             Console.WriteLine ("== EduPrograms:");
             writer = new StringWriter ();
             var eduPrograms = db.GetCollection<EduProgram> ("EduPrograms");
