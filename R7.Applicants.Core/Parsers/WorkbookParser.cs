@@ -103,10 +103,10 @@ namespace R7.Applicants.Core.Parsers
                         context.EduLevel = eduLevel;
 
                         if (context.EduLevel.Title.StartsWith ("специалитет СПО", StringComparison.CurrentCultureIgnoreCase)) {
-                            context.IsSpoBlock = true;
+                            context.IsSveBlock = true;
                         }
                         else {
-                            context.IsSpoBlock = false;
+                            context.IsSveBlock = false;
                         }
 
                         var eduProgramTitle = Regex.Match (cellStrValue, @"«[^»]+»", RegexOptions.Singleline | RegexOptions.IgnoreCase).Value;
@@ -131,7 +131,7 @@ namespace R7.Applicants.Core.Parsers
                 return;
             }
 
-            if (context.State == WorkbookParserState.TableHeader && context.IsSpoBlock) {
+            if (context.State == WorkbookParserState.TableHeader && context.IsSveBlock) {
                 if (cell.ColumnIndex == 5) {
                     context.EduProgram.Exam1Title = cellStrValue;
                 }
@@ -146,7 +146,7 @@ namespace R7.Applicants.Core.Parsers
                 return;
             }
 
-            if (context.State == WorkbookParserState.TableHeader && !context.IsSpoBlock) {
+            if (context.State == WorkbookParserState.TableHeader && !context.IsSveBlock) {
                 if (cell.ColumnIndex == 4) {
                     context.EduProgram.Exam1Title = cellStrValue;
                 }
@@ -181,7 +181,7 @@ namespace R7.Applicants.Core.Parsers
                 }
             }
 
-            if (context.State == WorkbookParserState.List && context.IsSpoBlock) {
+            if (context.State == WorkbookParserState.List && context.IsSveBlock) {
                 if (cell.ColumnIndex == 3) {
                     context.Applicant.HasOriginal = cellStrValue.Equals ("Оригинал", StringComparison.CurrentCultureIgnoreCase);
                 }
@@ -207,7 +207,7 @@ namespace R7.Applicants.Core.Parsers
                 return;
             }
 
-            if (context.State == WorkbookParserState.List && !context.IsSpoBlock) {
+            if (context.State == WorkbookParserState.List && !context.IsSveBlock) {
                 if (cell.ColumnIndex == 2) {
                     context.Applicant.HasOriginal = cellStrValue.Equals ("Оригинал", StringComparison.CurrentCultureIgnoreCase);
                 }
