@@ -205,6 +205,7 @@ namespace R7.Applicants.Core.Parsers
                 }
                 else if (cell.ColumnIndex > 9) {
                     context.Applicant.EduProgramId = context.EduProgram.Id;
+                    context.Applicant.EduFormId = context.EduForm.Id;
                     applicants.Insert (context.Applicant);
                     skipRow = true;
                 }
@@ -259,6 +260,7 @@ namespace R7.Applicants.Core.Parsers
                 else if (cell.ColumnIndex > 9) {
                     context.Applicant.CategoryId = context.Category.Id;
                     context.Applicant.EduProgramId = context.EduProgram.Id;
+                    context.Applicant.EduFormId = context.EduForm.Id;
                     applicants.Insert (context.Applicant);
                     skipRow = true;
                 }
