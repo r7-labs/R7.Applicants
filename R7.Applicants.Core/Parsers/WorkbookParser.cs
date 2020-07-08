@@ -123,21 +123,13 @@ namespace R7.Applicants.Core.Parsers
                         eduProgramTitle = FormatEduProgramTitle (eduProgramTitle);
                         eduProfileTitle = FormatEduProgramTitle (eduProfileTitle);
 
-                        var eduProgram = eduPrograms.FindOne (ep => ep.Title == eduProgramTitle
-                            && ep.ProfileTitle == eduProfileTitle
-                            && ep.EduLevelId == context.EduLevel.Id);
-
-                        if (eduProgram == null) {
-                            eduProgram = new EduProgram {
-                                EduLevelId = context.EduLevel.Id,
-                                Title = eduProgramTitle,
-                                ProfileTitle = eduProfileTitle
-                            };
-                            var id = eduPrograms.Insert (eduProgram);
-                            db.Commit ();
-                            eduProgram.Id = id.AsInt32;
+                        if (context.EduProgram == null) {
+                            context.EduProgram = new EduProgram ();
                         }
-                        context.EduProgram = eduProgram;
+
+                        context.EduProgram.Title = eduProgramTitle;
+                        context.EduProgram.ProfileTitle = eduProfileTitle;
+                        context.EduProgram.EduLevelId = context.EduLevel.Id;
                     }
                 }
                 return;
@@ -153,6 +145,7 @@ namespace R7.Applicants.Core.Parsers
                 else if (cell.ColumnIndex > 7) {
                     context.State = WorkbookParserState.List;
                     skipRow = true;
+                    InsertEduProgram (context);
                 }
                 return;
             }
@@ -170,6 +163,7 @@ namespace R7.Applicants.Core.Parsers
                 else if (cell.ColumnIndex > 6) {
                     context.State = WorkbookParserState.List;
                     skipRow = true;
+                    InsertEduProgram (context);
                 }
                 return;
             }
@@ -354,6 +348,22 @@ namespace R7.Applicants.Core.Parsers
             }
 
             return null;
+        }
+
+        void InsertEduProgram (WorkbookParserContext context)
+        {
+            var eduProgram = eduPrograms.FindOne (ep => ep.Title == context.EduProgram.Title
+                                && ep.ProfileTitle == context.EduProgram.ProfileTitle
+                                && ep.EduLevelId == context.EduLevel.Id);
+
+            if (eduProgram == null) {
+                eduProgram = context.EduProgram;
+                eduProgram.Id = 0;
+                var id = eduPrograms.Insert (eduProgram);
+                db.Commit ();
+                eduProgram.Id = id.AsInt32;
+            }
+            context.EduProgram = eduProgram;
         }
     }
 }
