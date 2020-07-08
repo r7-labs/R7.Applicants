@@ -65,10 +65,11 @@ namespace R7.Applicants.Core.Parsers
                 }
                 else if (cell.IsMergedCell && cellRangeAddress.NumberOfCells >= 10) {
                     if (Regex.IsMatch (cellStrValue, "факультет|институт", RegexOptions.IgnoreCase)) {
-                        var division = divisions.FindOne (d => d.Title == cellStrValue);
+                        var divisionTitle = cellStrValue.ToLower ();
+                        var division = divisions.FindOne (d => d.Title == divisionTitle);
                         if (division == null) {
                             division = new Division {
-                                Title = cellStrValue
+                                Title = divisionTitle
                             };
                             var id = divisions.Insert (division);
                             db.Commit ();
