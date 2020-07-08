@@ -130,6 +130,7 @@ namespace R7.Applicants.Core.Parsers
                         context.EduProgram.Title = eduProgramTitle;
                         context.EduProgram.ProfileTitle = eduProfileTitle;
                         context.EduProgram.EduLevelId = context.EduLevel.Id;
+                        context.EduProgram.DivisionId = context.Division.Id;
                     }
                 }
                 return;
@@ -354,7 +355,8 @@ namespace R7.Applicants.Core.Parsers
         {
             var eduProgram = eduPrograms.FindOne (ep => ep.Title == context.EduProgram.Title
                                 && ep.ProfileTitle == context.EduProgram.ProfileTitle
-                                && ep.EduLevelId == context.EduLevel.Id);
+                                && ep.EduLevelId == context.EduLevel.Id
+                                && ep.DivisionId == context.Division.Id);
 
             if (eduProgram == null) {
                 eduProgram = context.EduProgram;

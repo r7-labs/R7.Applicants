@@ -6,6 +6,8 @@
 
         public int EduLevelId { get; set; }
 
+        public int DivisionId { get; set; }
+
         public string Title { get; set; }
 
         public string ProfileTitle { get; set; }
