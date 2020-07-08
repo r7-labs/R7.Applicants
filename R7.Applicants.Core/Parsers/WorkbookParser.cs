@@ -111,6 +111,9 @@ namespace R7.Applicants.Core.Parsers
 
                         var eduProgramTitle = Regex.Match (cellStrValue, @"«[^»]+»", RegexOptions.Singleline | RegexOptions.IgnoreCase).Value;
                         var eduProfileTitle = Regex.Match (cellStrValue, @"Профиль:(.*)", RegexOptions.Singleline | RegexOptions.IgnoreCase).Groups [1].Value;
+                        if (string.IsNullOrEmpty (eduProfileTitle)) {
+                            eduProfileTitle = Regex.Match (cellStrValue, @"на базе .* общего образования", RegexOptions.Singleline | RegexOptions.IgnoreCase).Value;
+                        }
 
                         eduProgramTitle = FormatEduProgramTitle (eduProgramTitle);
                         eduProfileTitle = FormatEduProgramTitle (eduProfileTitle);
@@ -321,11 +324,8 @@ namespace R7.Applicants.Core.Parsers
             if (Regex.IsMatch (cellStrValue, "подготовки кадров высшей квалификации", RegexOptions.IgnoreCase | RegexOptions.Singleline)) {
                 return "аспирантура";
             }
-            if (Regex.IsMatch (cellStrValue, "на базе основного общего образования", RegexOptions.IgnoreCase | RegexOptions.Singleline)) {
-                return "специалитет СПО на базе 9 кл.";
-            }
-            if (Regex.IsMatch (cellStrValue, "на базе среднего общего образования", RegexOptions.IgnoreCase | RegexOptions.Singleline)) {
-                return "специалитет СПО на базе 11 кл.";
+            if (Regex.IsMatch (cellStrValue, "на базе .* общего образования", RegexOptions.IgnoreCase | RegexOptions.Singleline)) {
+                return "специалитет СПО";
             }
             if (Regex.IsMatch (cellStrValue, "специалитета", RegexOptions.IgnoreCase)) {
                 return "специалитет";
