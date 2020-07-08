@@ -16,6 +16,8 @@
 
         public int EduFormId { get; set; }
 
+        public int FinancingId { get; set; }
+
         public decimal? Exam1Rate { get; set; }
 
         public decimal? Exam2Rate { get; set; }

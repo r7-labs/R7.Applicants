@@ -17,6 +17,7 @@ namespace R7.Applicants.Core.Parsers
 
         ILiteCollection<Division> divisions;
         ILiteCollection<EduForm> eduForms;
+        ILiteCollection<Financing> financings;
         ILiteCollection<EduProgram> eduPrograms;
         ILiteCollection<EduLevel> eduLevels;
         ILiteCollection<Applicant> applicants;
@@ -27,6 +28,7 @@ namespace R7.Applicants.Core.Parsers
 
             divisions = db.GetCollection<Division> ("Divisions");
             eduForms = db.GetCollection<EduForm> ("EduForms");
+            financings = db.GetCollection<Financing> ("Financings");
             eduPrograms = db.GetCollection<EduProgram> ("EduPrograms");
             eduLevels = db.GetCollection<EduLevel> ("EduLevels");
             applicants = db.GetCollection<Applicant> ("Applicants");
@@ -88,6 +90,19 @@ namespace R7.Applicants.Core.Parsers
                             eduForm.Id = id.AsInt32;
                         }
                         context.EduForm = eduForm;
+                    }
+                    if (Regex.IsMatch (cellStrValue, "бюджет|договор", RegexOptions.IgnoreCase)) {
+                        var financingTitle = cellStrValue.ToLower ();
+                        var financing = financings.FindOne (f => f.Title == financingTitle);
+                        if (financing == null) {
+                            financing = new Financing {
+                                Title = financingTitle
+                            };
+                            var id = financings.Insert (financing);
+                            db.Commit ();
+                            financing.Id = id.AsInt32;
+                        }
+                        context.Financing = financing;
                     }
                     if (Regex.IsMatch (cellStrValue, "бакалавриат|специалитет|магистратур|подготовки кадров|основного общего|среднего общего", RegexOptions.IgnoreCase)) {
                         var eduLevelStrValue = GetEduLevelString (cellStrValue);
@@ -202,6 +217,7 @@ namespace R7.Applicants.Core.Parsers
                 else if (cell.ColumnIndex > 9) {
                     context.Applicant.EduProgramId = context.EduProgram.Id;
                     context.Applicant.EduFormId = context.EduForm.Id;
+                    context.Applicant.FinancingId = context.Financing.Id;
                     applicants.Insert (context.Applicant);
                     skipRow = true;
                 }
@@ -246,6 +262,7 @@ namespace R7.Applicants.Core.Parsers
                 else if (cell.ColumnIndex > 9) {
                     context.Applicant.EduProgramId = context.EduProgram.Id;
                     context.Applicant.EduFormId = context.EduForm.Id;
+                    context.Applicant.FinancingId = context.Financing.Id;
                     applicants.Insert (context.Applicant);
                     skipRow = true;
                 }

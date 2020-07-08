@@ -14,6 +14,8 @@ namespace R7.Applicants.Core.Parsers
 
         public EduForm EduForm;
 
+        public Financing Financing;
+
         public Applicant Applicant;
 
         public bool IsSveBlock;

@@ -29,6 +29,15 @@ namespace R7.Applicants.Core
             }
             Console.WriteLine (writer);
 
+            Console.WriteLine ("== Financings:");
+            writer = new StringWriter ();
+            var financings = db.GetCollection<Financing> ("Financings");
+            foreach (var financing in financings.FindAll ()) {
+                json.Serialize (writer, financing);
+                writer.WriteLine ();
+            }
+            Console.WriteLine (writer);
+
             Console.WriteLine ("== EduLevels:");
             writer = new StringWriter ();
             var eduLevels = db.GetCollection<EduLevel> ("EduLevels");
