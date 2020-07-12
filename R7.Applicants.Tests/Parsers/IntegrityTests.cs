@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using R7.Applicants.Models;
+﻿using R7.Applicants.Models;
 using Xunit;
 
 namespace R7.Applicants.Tests
@@ -45,7 +44,7 @@ namespace R7.Applicants.Tests
                     && ep.EduLevelId == eduProgram.EduLevelId
                     && ep.Id != eduProgram.Id
                 );
-                Assert.Empty (duplicateEduPrograms);         
+                Assert.Empty (duplicateEduPrograms);
             }
         }
 
