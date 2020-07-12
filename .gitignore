@@ -8,7 +8,3 @@ obj/
 # Packages
 packages/
 node_modules/
-
-# Test data
-R7.Applicants/data
-
