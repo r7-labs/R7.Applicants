@@ -188,8 +188,8 @@ namespace R7.Applicants.Parsers
                 }
                 if (cell.ColumnIndex == 0) {
                     context.Applicant = new Applicant ();
-                    if (int.TryParse (cellStrValue, out int order)) {
-                        context.Applicant.Order = order;
+                    if (int.TryParse (cellStrValue, out int rankedOrder)) {
+                        context.Applicant.RankedOrder = rankedOrder;
                     }
                 }
                 else if (cell.ColumnIndex == 1) {
