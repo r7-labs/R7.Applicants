@@ -1,4 +1,6 @@
 ﻿using System;
+using R7.Applicants.Core;
+using R7.Applicants.Tests.Data;
 
 namespace R7.Applicants.Tests
 {
@@ -6,7 +8,7 @@ namespace R7.Applicants.Tests
     {
         static void Main (string [] args)
         {
-            Console.WriteLine ("Hello World!");
+            Console.Write (DatabaseDumper.DumpDatabase (TestDatabase.Instance));
         }
     }
 }
