@@ -28,7 +28,13 @@
     <ProjectReference Include="..\R7.Applicants\R7.Applicants.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="test-data\asp.xls">
+    <None Update="test-data\aspirant.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test-data\bachelor.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test-data\college.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
