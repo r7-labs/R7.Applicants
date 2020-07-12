@@ -31,5 +31,7 @@
         public decimal? TotalRate { get; set; }
 
         public string Category { get; set; }
+
+        public decimal TotalRateCalculated => (Exam1Rate ?? 0) + (Exam2Rate ?? 0) + (Exam3Rate ?? 0) + (AchRate ?? 0);
     }
 }

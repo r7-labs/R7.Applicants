@@ -6,7 +6,8 @@ namespace R7.Applicants.Tests
     {
         static void Main (string [] args)
         {
-            Console.Write (DatabaseDumper.DumpDatabase (TestDatabase.Instance));
+            var db = TestDatabase.Instance;
+            Console.Write (DatabaseDumper.DumpDatabase (db));
         }
     }
 }

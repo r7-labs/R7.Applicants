@@ -1,4 +1,5 @@
-﻿using R7.Applicants.Models;
+﻿using System.Linq;
+using R7.Applicants.Models;
 using Xunit;
 
 namespace R7.Applicants.Tests
@@ -55,6 +56,14 @@ namespace R7.Applicants.Tests
             var applicants = db.GetCollection<Applicant> ("Applicants");
             var unrankedApplicants = applicants.Find (ap => ap.HasOriginal && ap.RankedOrder == null);
             Assert.Empty (unrankedApplicants);
+        }
+
+        [Fact]
+        public void AllApplicantsHaveProperlyCalculatedTotalRate ()
+        {
+            var db = TestDatabase.Instance;
+            var applicants = db.GetCollection<Applicant> ("Applicants");
+            Assert.Empty (applicants.Find (ap => (ap.TotalRate ?? 0) != ap.TotalRateCalculated));
         }
     }
 }
