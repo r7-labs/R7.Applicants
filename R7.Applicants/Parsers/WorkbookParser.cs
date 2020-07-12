@@ -6,9 +6,9 @@ using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
-using R7.Applicants.Core.Models;
+using R7.Applicants.Models;
 
-namespace R7.Applicants.Core.Parsers
+namespace R7.Applicants.Parsers
 {
     // TODO: Move regexes to separate configuration class?
     public class WorkbookParser

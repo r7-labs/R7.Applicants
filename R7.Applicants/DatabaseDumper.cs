@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using LiteDB;
-using R7.Applicants.Core.Models;
+using R7.Applicants.Models;
 
-namespace R7.Applicants.Core
+namespace R7.Applicants
 {
     public static class DatabaseDumper
     {

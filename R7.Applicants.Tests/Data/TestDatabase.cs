@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using LiteDB;
-using R7.Applicants.Core.Parsers;
+using R7.Applicants.Parsers;
 
 namespace R7.Applicants.Tests.Data
 {

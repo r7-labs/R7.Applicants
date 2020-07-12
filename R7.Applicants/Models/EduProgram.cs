@@ -1,4 +1,4 @@
-﻿namespace R7.Applicants.Core.Models
+﻿namespace R7.Applicants.Models
 {
     public class EduProgram
     {

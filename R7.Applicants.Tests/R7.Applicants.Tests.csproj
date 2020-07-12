@@ -25,7 +25,7 @@
     <Folder Include="Queries\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\R7.Applicants.Core\R7.Applicants.Core.csproj" />
+    <ProjectReference Include="..\R7.Applicants\R7.Applicants.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="test-data\asp.xls">

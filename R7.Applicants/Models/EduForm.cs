@@ -1,6 +1,6 @@
-﻿namespace R7.Applicants.Core.Models
+﻿namespace R7.Applicants.Models
 {
-    public class EduLevel
+    public class EduForm
     {
         public int Id { get; set; }
 

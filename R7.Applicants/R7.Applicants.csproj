@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="R7.Applicants.Core.csproj" />
+    <None Include="R7.Applicants.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NPOI" Version="2.4.1" />
