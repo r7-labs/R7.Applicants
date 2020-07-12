@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using R7.Applicants.Models;
+﻿using R7.Applicants.Models;
 using Xunit;
 
 namespace R7.Applicants.Tests.Queries
@@ -11,11 +10,10 @@ namespace R7.Applicants.Tests.Queries
         {
             var db = TestDatabase.Instance;
             var applicants = db.GetCollection<Applicant> ("Applicants").Find (
-                ap => ap.Name == "Аспирант 1"
+                ap => ap.Name.Contains ("Аспирант")
             );
 
             Assert.NotEmpty (applicants);
-            Assert.Equal (2, applicants.Count ());
         }
     }
 }
