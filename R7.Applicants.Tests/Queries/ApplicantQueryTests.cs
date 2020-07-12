@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using R7.Applicants.Models;
-using R7.Applicants.Tests.Data;
 using Xunit;
 
 namespace R7.Applicants.Tests.Queries

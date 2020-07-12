@@ -21,7 +21,6 @@
   <ItemGroup>
     <Folder Include="Parsers\" />
     <Folder Include="test-data\" />
-    <Folder Include="Data\" />
     <Folder Include="Queries\" />
   </ItemGroup>
   <ItemGroup>

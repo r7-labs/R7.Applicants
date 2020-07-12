@@ -3,7 +3,7 @@ using System.IO;
 using LiteDB;
 using R7.Applicants.Parsers;
 
-namespace R7.Applicants.Tests.Data
+namespace R7.Applicants.Tests
 {
     public static class TestDatabase
     {
