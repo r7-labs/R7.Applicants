@@ -47,5 +47,14 @@ namespace R7.Applicants.Tests
                 Assert.Empty (duplicateEduPrograms);         
             }
         }
+
+        [Fact]
+        public void AllApplicantsWithOriginalHaveRankedOrder ()
+        {
+            var db = TestDatabase.Instance;
+            var applicants = db.GetCollection<Applicant> ("Applicants");
+            var unrankedApplicants = applicants.Find (ap => ap.HasOriginal && ap.RankedOrder == null);
+            Assert.Empty (unrankedApplicants);
+        }
     }
 }
