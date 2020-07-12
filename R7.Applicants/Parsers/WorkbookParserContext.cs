@@ -1,4 +1,4 @@
-﻿using R7.Applicants.Models;
+using R7.Applicants.Models;
 
 namespace R7.Applicants.Parsers
 {

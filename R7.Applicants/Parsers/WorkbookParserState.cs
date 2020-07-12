@@ -1,4 +1,4 @@
-﻿namespace R7.Applicants.Parsers
+namespace R7.Applicants.Parsers
 {
     public enum WorkbookParserState
     {

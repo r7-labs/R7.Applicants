@@ -1,4 +1,4 @@
-﻿namespace R7.Applicants.Models
+namespace R7.Applicants.Models
 {
     public class Division
     {

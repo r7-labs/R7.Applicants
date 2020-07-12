@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using LiteDB;
 using R7.Applicants.Parsers;

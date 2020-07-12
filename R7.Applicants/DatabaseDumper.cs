@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using LiteDB;
 using R7.Applicants.Models;
 
