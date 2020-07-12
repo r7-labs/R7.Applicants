@@ -14,6 +14,14 @@ namespace R7.Applicants.Tests
         }
 
         [Fact]
+        public void DatabaseContainsEduPrograms ()
+        {
+            var db = TestDatabase.Instance;
+            var eduPrograms = db.GetCollection<EduProgram> ("EduPrograms").FindAll ();
+            Assert.NotEmpty (eduPrograms);
+        }
+
+        [Fact]
         public void AllEduProgramsHasExamTitles ()
         {
             var db = TestDatabase.Instance;
