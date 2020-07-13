@@ -217,7 +217,13 @@ namespace R7.Applicants.Parsers
                         context.Applicant.TotalRate = totalRate;
                     }
                 }
-                else if (cell.ColumnIndex > 9) {
+                else if (cell.ColumnIndex == 10) {
+                    context.Applicant.Status = cellStrValue;
+                }
+                else if (cell.ColumnIndex == 11) {
+                    context.Applicant.RejectReason = cellStrValue;
+                }
+                else if (cell.ColumnIndex > 11) {
                     context.Applicant.EduProgramId = context.EduProgram.Id;
                     context.Applicant.EduFormId = context.EduForm.Id;
                     context.Applicant.FinancingId = context.Financing.Id;
@@ -262,7 +268,18 @@ namespace R7.Applicants.Parsers
                 else if (cell.ColumnIndex == 9) {
                     context.Applicant.Category = cellStrValue;
                 }
-                else if (cell.ColumnIndex > 9) {
+                else if (cell.ColumnIndex == 10) {
+                    if (cellStrValue.Equals ("Да", StringComparison.CurrentCultureIgnoreCase)) {
+                        context.Applicant.HasPreemptiveRight = true;
+                    }
+                }
+                else if (cell.ColumnIndex == 11) {
+                    context.Applicant.Status = cellStrValue;
+                }
+                else if (cell.ColumnIndex == 12) {
+                    context.Applicant.RejectReason = cellStrValue;
+                }
+                else if (cell.ColumnIndex > 12) {
                     context.Applicant.EduProgramId = context.EduProgram.Id;
                     context.Applicant.EduFormId = context.EduForm.Id;
                     context.Applicant.FinancingId = context.Financing.Id;
