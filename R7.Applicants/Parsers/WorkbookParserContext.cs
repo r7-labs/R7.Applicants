@@ -20,6 +20,8 @@ namespace R7.Applicants.Parsers
 
         public bool IsSveBlock;
 
+        public int Order;
+
         public WorkbookParserContext ()
         {
             State = WorkbookParserState.Initial;

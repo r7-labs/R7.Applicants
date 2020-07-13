@@ -156,6 +156,7 @@ namespace R7.Applicants.Parsers
                 }
                 else if (cell.ColumnIndex > 7) {
                     context.State = WorkbookParserState.List;
+                    context.Order = 0;
                     skipRow = true;
                     InsertEduProgram (context);
                 }
@@ -174,6 +175,7 @@ namespace R7.Applicants.Parsers
                 }
                 else if (cell.ColumnIndex > 6) {
                     context.State = WorkbookParserState.List;
+                    context.Order = 0;
                     skipRow = true;
                     InsertEduProgram (context);
                 }
@@ -188,6 +190,7 @@ namespace R7.Applicants.Parsers
                 }
                 if (cell.ColumnIndex == 0) {
                     context.Applicant = new Applicant ();
+                    context.Applicant.Order = ++context.Order;
                     if (int.TryParse (cellStrValue, out int rankedOrder)) {
                         context.Applicant.RankedOrder = rankedOrder;
                     }

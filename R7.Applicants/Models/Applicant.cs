@@ -4,6 +4,8 @@ namespace R7.Applicants.Models
     {
         public int Id { get; set; }
 
+        public int Order { get; set; }
+
         public int? RankedOrder { get; set; }
 
         public string Name { get; set; }
