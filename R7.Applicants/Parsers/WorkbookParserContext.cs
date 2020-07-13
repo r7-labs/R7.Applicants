@@ -18,7 +18,7 @@ namespace R7.Applicants.Parsers
 
         public Applicant Applicant;
 
-        public bool IsSveBlock;
+        public bool IsCollegeList;
 
         public int Order;
 
