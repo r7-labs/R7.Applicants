@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace R7.Applicants.Models
 {
     public class Applicant
@@ -40,6 +42,7 @@ namespace R7.Applicants.Models
 
         public bool HasPreemptiveRight { get; set; }
 
+        [JsonIgnore]
         public decimal TotalRateCalculated => (Exam1Rate ?? 0) + (Exam2Rate ?? 0) + (Exam3Rate ?? 0) + (AchRate ?? 0);
     }
 }
