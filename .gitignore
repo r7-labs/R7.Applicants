@@ -10,5 +10,6 @@ packages/
 node_modules/
 
 # Test data
+R7.Applicants.Tests/test-data/*
 R7.Applicants.Tests/*.db
 

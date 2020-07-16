@@ -10,7 +10,7 @@ namespace R7.Applicants.Tests
         const string TEST_DATABASE_FILE = "./test.db";
         const string TEST_DATABASE_LOG_FILE = "./test-log.db";
 
-        public static readonly ILiteDatabase Instance = new Lazy<LiteDatabase> (() => CreateTestDatabase ("./test-data")).Value;
+        public static readonly ILiteDatabase Instance = new Lazy<LiteDatabase> (() => CreateTestDatabase ("../../../test-data")).Value;
 
         public static LiteDatabase CreateTestDatabase (string path)
         {

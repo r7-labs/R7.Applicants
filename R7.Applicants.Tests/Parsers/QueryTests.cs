@@ -10,7 +10,7 @@ namespace R7.Applicants.Tests
         {
             var db = TestDatabase.Instance;
             var applicants = db.GetCollection<Applicant> ("Applicants").Find (
-                ap => ap.Name.Contains ("Аспирант")
+                ap => ap.Name.Length > 0
             );
 
             Assert.NotEmpty (applicants);
