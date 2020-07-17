@@ -15,5 +15,6 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Parsers\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 </Project>

@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="Parsers\" />
     <Folder Include="test-data\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\R7.Applicants\R7.Applicants.csproj" />

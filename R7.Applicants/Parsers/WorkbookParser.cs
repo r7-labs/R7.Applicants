@@ -21,6 +21,7 @@ namespace R7.Applicants.Parsers
         ILiteCollection<EduProgram> eduPrograms;
         ILiteCollection<EduLevel> eduLevels;
         ILiteCollection<Applicant> applicants;
+        ILiteCollection<SourceFile> sourceFiles;
 
         public WorkbookParser (ILiteDatabase db)
         {
@@ -32,6 +33,7 @@ namespace R7.Applicants.Parsers
             eduPrograms = db.GetCollection<EduProgram> ("EduPrograms");
             eduLevels = db.GetCollection<EduLevel> ("EduLevels");
             applicants = db.GetCollection<Applicant> ("Applicants");
+            sourceFiles = db.GetCollection<SourceFile> ("SourceFiles");
         }
 
         /// <summary>
@@ -292,6 +294,14 @@ namespace R7.Applicants.Parsers
 
         public void ParseTo (string path, ILiteDatabase db)
         {
+            var sourceFile = new SourceFile {
+                Filename = Path.GetFileName (path),
+                LastWriteTimeUtc = File.GetLastWriteTimeUtc (path),
+                Length = new FileInfo (path).Length
+            };
+            sourceFiles.Insert (sourceFile);
+            db.Commit ();
+
             using (var fileStream = new FileStream (path, FileMode.Open, FileAccess.Read)) {
                 IWorkbook book;
                 if (Path.GetExtension (path).ToLowerInvariant () == ".xls") {
