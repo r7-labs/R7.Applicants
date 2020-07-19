@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using LiteDB;
+using R7.Applicants.Data;
 using R7.Applicants.Parsers;
 
 namespace R7.Applicants.Tests
@@ -29,6 +30,9 @@ namespace R7.Applicants.Tests
             foreach (var listFile in listFiles) {
                 workbookParser.ParseTo (listFile, db);
             }
+
+            var dbProducer = new ApplicantsDatabaseProducer ();
+            dbProducer.WriteDbInfo (db);
 
             return db;
         }

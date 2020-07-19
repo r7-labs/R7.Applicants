@@ -7,7 +7,9 @@
     <!-- Fix for "CS0017 Program has more than one entry point defined"
       https://andrewlock.net/fixing-the-error-program-has-more-than-one-entry-point-defined-for-console-apps-containing-xunit-tests/ -->
     <GenerateProgramFile>false</GenerateProgramFile>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <!-- End fix -->
+    <ReleaseVersion>0.1.0</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,8 +24,12 @@
     <Folder Include="Parsers\" />
     <Folder Include="test-data\" />
     <Folder Include="Data\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\R7.Applicants\R7.Applicants.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\R7.Applicants\Properties\SolutionInfo.cs" Link="Properties\SolutionInfo.cs" />
   </ItemGroup>
 </Project>

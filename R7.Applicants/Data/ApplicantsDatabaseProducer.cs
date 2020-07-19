@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using LiteDB;
 using R7.Applicants.Models;
 
@@ -28,9 +29,13 @@ namespace R7.Applicants.Data
             return DatabaseIsActual (db, srcFiles.Select (f => new FileInfo (f)));
         }
 
-        // TODO: Take current app version into account
         public bool DatabaseIsActual (ILiteDatabase db, IEnumerable<FileInfo> srcFiles)
         {
+            if (db.GetCollection<DbInfo> ().FindAll ().First ().GeneratedWithAppVersion !=
+                Assembly.GetExecutingAssembly ().GetName ().Version.ToString ()) {
+                return false;
+            }
+
             var dbSrcFiles = db.GetCollection<SourceFile> ("SourceFiles");
             if (srcFiles.Count () != dbSrcFiles.Count ()) {
                 return false;
@@ -45,6 +50,15 @@ namespace R7.Applicants.Data
                 }
             }
             return true;
+        }
+
+        public void WriteDbInfo (ILiteDatabase db)
+        {
+            db.GetCollection<DbInfo> ().Insert (new DbInfo {
+                GeneratedTimeUtc = DateTime.UtcNow,
+                GeneratedWithAppVersion = Assembly.GetExecutingAssembly ().GetName ().Version.ToString ()
+            });
+            db.Commit ();
         }
     }
 }
